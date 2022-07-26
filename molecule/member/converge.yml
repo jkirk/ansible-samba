@@ -4,7 +4,7 @@
   tasks:
     - name: "Include ansible-role-samba"
       include_role:
-        name: "ansible-role-samba"
+        name: "luisico.samba"
       vars:
         samba_role: member
         samba_share_homes: false

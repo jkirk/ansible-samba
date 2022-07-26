@@ -2,10 +2,10 @@
 - name: Install Samba Domain Member packages
   package:
     name:
-    - krb5-user
-    - samba
-    - smbclient
-    - winbind
+      - krb5-user
+      - samba
+      - smbclient
+      - winbind
     state: present
 
 - name: Deploy Samba Domain Member Server configuration
