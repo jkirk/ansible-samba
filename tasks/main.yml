@@ -6,4 +6,4 @@
   when: samba_role == 'client'
 
 - import_tasks: member.yml
-  when: samba_role == 'member'
+  when: samba_role == 'member' or samba_role == 'dc'

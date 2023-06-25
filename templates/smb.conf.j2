@@ -4,9 +4,12 @@
 {% if samba_role == "member" %}
   realm = {{ samba_realm }}
   security = ADS
+{% elif samba_role == "dc" %}
+  realm = {{ samba_realm }}
+  server role = active directory domain controller
 {% endif %}
 {% for key, value in samba_global.items() %}
-{% if not ((key == "security" or key == "realm") and samba_role == "member") %}
+{% if not ((key == "security" or key == "realm") and (samba_role == "member" or samba_role == "dc")) %}
   {{ key }} = {{ value }}
 {% endif %}
 {% endfor %}
@@ -16,6 +19,16 @@
   printcap name = cups
   load printers = yes
   cups options = raw
+{% endif %}
+{% if samba_role == "dc" %}
+
+[netlogon]
+  path = /var/lib/samba/sysvol/{{ samba_realm }}/scripts
+  read only = No
+
+[sysvol]
+  path = /var/lib/samba/sysvol
+  read only = No
 {% endif %}
 {% if samba_share_homes %}
 

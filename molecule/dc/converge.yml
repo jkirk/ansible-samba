@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+
+  vars:
+    samba_role: dc
+    samba_share_homes: false
+    samba_share_printers: false
+    samba_workgroup: EXAMPLE
+    samba_realm: AD.EXAMPLE.COM
+    samba_global:
+      "dns forwarder": 192.168.100.1
+      "log level": auth_audit:5 dsdb_password_audit:5
+
+  roles:
+    - role: luisico.samba
