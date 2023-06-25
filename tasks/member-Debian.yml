@@ -2,8 +2,11 @@
 - name: Install Samba Domain Member packages
   package:
     name:
+      - dnsutils
       - krb5-user
+      - ldb-tools
       - libnss-winbind
+      - libpam-winbind
       - samba
       - smbclient
       - winbind
