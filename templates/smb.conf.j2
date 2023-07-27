@@ -23,7 +23,7 @@
 {% if samba_role == "dc" %}
 
 [netlogon]
-  path = /var/lib/samba/sysvol/{{ samba_realm }}/scripts
+  path = /var/lib/samba/sysvol/{{ samba_realm|lower }}/scripts
   read only = No
 
 [sysvol]
