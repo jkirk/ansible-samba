@@ -1,13 +1,1 @@
----
-dependency:
-  name: galaxy
-driver:
-  name: docker
-platforms:
-  - name: instance
-    image: geerlingguy/docker-${MOLECULE_DISTRO:-debian12}-ansible:latest
-    pre_build_image: true
-provisioner:
-  name: ansible
-verifier:
-  name: ansible
+../default/molecule.yml
