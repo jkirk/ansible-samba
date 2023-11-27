@@ -1,5 +1,5 @@
 ---
-# Install role: server or client or member
+# Install role: server or client or member or dc
 samba_role: client
 
 # Samba workgroup
