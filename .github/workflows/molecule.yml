@@ -50,7 +50,7 @@ jobs:
         run: molecule --version
 
       - name: Run molecule test
-        run: molecule test
+        run: molecule test --all
         working-directory: 'luisico.samba'
         env:
           PY_COLORS: '1'

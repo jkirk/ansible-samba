@@ -1,3 +1,6 @@
 ---
 - name: Reload smb
   service: name=smb state=reloaded
+
+- name: apt-get update
+  apt: update_cache=yes

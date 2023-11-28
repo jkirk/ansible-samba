@@ -2,6 +2,10 @@
 # Install role: server or client or member or dc
 samba_role: client
 
+# Enable Michael Tokarev's Samba repository and install Samba 4.19
+# see: http://www.corpit.ru/mjt/packages/samba/ + http://samba.bigbird.es/doku.php?id=samba:installing-from-mt-repos
+# samba_mjt_repository: true | default(false)
+
 # Samba workgroup
 samba_workgroup: SAMBA
 
