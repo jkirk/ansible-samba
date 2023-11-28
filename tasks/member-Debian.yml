@@ -1,4 +1,14 @@
 ---
+- name: Make sure /etc/apt/keyrings exists
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    owner: root
+    group: root
+    mode: '00755'
+  when:
+    - samba_mjt_repository | default(false)
+
 - name: Deploy Michael Tokarev's signing key
   copy:
     src: samba-mjt-archive-keyring.gpg
