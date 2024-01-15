@@ -1,0 +1,27 @@
+---
+- name: Make sure /etc/apt/keyrings exists
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    owner: root
+    group: root
+    mode: '00755'
+
+- name: Deploy Michael Tokarev's signing key
+  copy:
+    src: samba-mjt-archive-keyring.gpg
+    dest: /etc/apt/keyrings/samba-mjt-archive-keyring.gpg
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Enabled Michael Tokarev's Samba repository
+  ansible.builtin.copy:
+    content: "deb [signed-by=/etc/apt/keyrings/samba-mjt-archive-keyring.gpg] http://www.corpit.ru/mjt/packages/samba {{ ansible_distribution_release }}/samba-4.19/"
+    dest: /etc/apt/sources.list.d/samba-mjt.list
+    owner: root
+    group: root
+    mode: '0644'
+  notify: apt-get update
+
+- meta: flush_handlers

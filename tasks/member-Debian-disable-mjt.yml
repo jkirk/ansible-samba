@@ -1,0 +1,13 @@
+---
+- name: Remove Michael Tokarev's signing key
+  file:
+    path: /etc/apt/keyrings/samba-mjt-archive-keyring.gpg
+    state: absent
+
+- name: Disable Michael Tokarev's Samba repository
+  file:
+    path: /etc/apt/sources.list.d/samba-mjt.list
+    state: absent
+  notify: apt-get update
+
+- meta: flush_handlers

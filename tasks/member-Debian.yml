@@ -1,36 +1,11 @@
 ---
-- name: Make sure /etc/apt/keyrings exists
-  ansible.builtin.file:
-    path: /etc/apt/keyrings
-    state: directory
-    owner: root
-    group: root
-    mode: '00755'
+- include_tasks: member-Debian-mjt.yml
   when:
     - samba_mjt_repository | default(false)
 
-- name: Deploy Michael Tokarev's signing key
-  copy:
-    src: samba-mjt-archive-keyring.gpg
-    dest: /etc/apt/keyrings/samba-mjt-archive-keyring.gpg
-    owner: root
-    group: root
-    mode: '0644'
+- include_tasks: member-Debian-disable-mjt.yml
   when:
-    - samba_mjt_repository | default(false)
-
-- name: Enabled Michael Tokarev's Samba repository
-  ansible.builtin.copy:
-    content: "deb [signed-by=/etc/apt/keyrings/samba-mjt-archive-keyring.gpg] http://www.corpit.ru/mjt/packages/samba {{ ansible_distribution_release }}/samba-4.19/"
-    dest: /etc/apt/sources.list.d/samba-mjt.list.list
-    owner: root
-    group: root
-    mode: '0644'
-  when:
-    - samba_mjt_repository | default(false)
-  notify: apt-get update
-
-- meta: flush_handlers
+    - not samba_mjt_repository | default(false)
 
 - name: Install Samba Domain Controller + Member Server packages
   package:
