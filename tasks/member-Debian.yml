@@ -32,16 +32,21 @@
 
 - meta: flush_handlers
 
-- name: Install Samba Domain Controller / Member packages
+- name: Install Samba Domain Controller + Member Server packages
   package:
     name:
+      # optional but useful tools
       - dnsutils
+      - rsync
+      # Samba DC / Member Server packages list taken from:
+      # http://samba.bigbird.es/doku.php?id=samba:install-samba-as-dc
+      # http://samba.bigbird.es/doku.php?id=samba:install-as-member
+      # (removed packages which are already dependencies of the given packages)
       - krb5-user
       - krb5-config
       - ldb-tools
       - libnss-winbind
       - libpam-winbind
-      - rsync
       - samba
       - samba-dsdb-modules
       - samba-vfs-modules
@@ -49,10 +54,9 @@
       - winbind
     state: present
 
-- name: Install additional Samba Domain Controller
+- name: Install Samba files needed for AD domain provision
   package:
     name:
       - samba-ad-provision
   when:
-    - ansible_distribution == "Debian"
-    - samba_mjt_repository | default(false)
+    - samba_mjt_repository | default(false) or ansible_distribution_version|int >= 12
