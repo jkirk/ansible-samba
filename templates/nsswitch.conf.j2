@@ -5,8 +5,13 @@
 # If you have the `glibc-doc-reference' and `info' packages installed, try:
 # `info libc "Name Service Switch"' for information about this file.
 
+{% if samba_role == 'dc' %}
+passwd:         files
+group:          files
+{% else %}
 passwd:         files winbind
 group:          files winbind
+{% endif %}{# samba_role == 'dc' #}
 shadow:         files
 gshadow:        files
 
