@@ -21,6 +21,12 @@ jobs:
           - debian10
           - debian11
           - debian12
+        ansible-core-version:
+          - 2.16
+          - 2.17
+        exclude:
+          - distro: centos8
+            ansible-core-version: 2.17
 
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -41,7 +47,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install test dependencies
-        run: pip3 install ansible-core==2.17 molecule molecule-plugins[docker]
+        run: pip3 install ansible-core==${{ matrix.ansible-core-version }} molecule molecule-plugins[docker]
 
       - name: Check ansible version
         run: ansible --version
