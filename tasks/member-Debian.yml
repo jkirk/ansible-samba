@@ -11,7 +11,7 @@
   package:
     name:
       # optional but useful tools
-      - dnsutils
+      - bind9-dnsutils
       - rsync
       # Samba DC / Member Server packages list taken from:
       # http://samba.bigbird.es/doku.php?id=samba:install-samba-as-dc
